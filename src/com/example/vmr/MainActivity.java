@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
-import android.R;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -16,16 +15,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.provider.CalendarContract.Calendars;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-
-
 
 public class MainActivity extends Activity implements View.OnClickListener { // ActionBarActivity
 	Intent intent = new Intent(Intent.ACTION_SEND);
@@ -50,46 +42,51 @@ public class MainActivity extends Activity implements View.OnClickListener { // 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-
         
-        Log.d("com.example.vmr", "fisk");
-        
+        Log.d("com.example.vmr", "created");
         
         button = new Button( this );
         button.setText( "Touch me!" );
         button.setOnClickListener( this );
         setContentView(button);
-       
-      
-    
-        
-        Cursor cur = null;
+
+        getCalendars();
+        getEvents();
+    }
+   
+   public void getCalendars(){
+	    Cursor cur = null;
         ContentResolver cr = getContentResolver();
         Uri uri = Calendars.CONTENT_URI; 
         Log.d("com.example.vmr", "URI:"+uri.toString());
 
-        String selection = "((" + Calendars.ACCOUNT_NAME + " = ?) AND (" 
-                                + Calendars.ACCOUNT_TYPE + " = ?) AND ("
-                                + Calendars.OWNER_ACCOUNT + " = ?))";
-        String[] selectionArgs = new String[] {"helgelangehaug@gmail.com", "com.google", "helgelangehaug@gmail.com"}; 
+       // String selection = "((" + Calendars.ACCOUNT_NAME + " = ?) AND (" 
+       //                         + Calendars.ACCOUNT_TYPE + " = ?) AND ("
+       //                         + Calendars.OWNER_ACCOUNT + " = ?))";
+        String selection = "((" + Calendars.OWNER_ACCOUNT + " = ?))";
+        
+       // String[] selectionArgs = new String[] { "helgelangehaug@gmail.com", 
+       // 										"com.google", 
+       // 										"helgelangehaug@gmail.com" }; 
+        
+         String[] selectionArgs = new String[] {"helgelangehaug@gmail.com" }; 
+        
+        
         // Submit the query and get a Cursor object back. 
         cur = cr.query(uri, EVENT_PROJECTION, selection, selectionArgs, null);
-     // Use the cursor to step through the returned records
-        button.setText("HELGE"+cur);
+        
         int count=0;
         Log.d("com.example.vmr", "--- calendar ---");
 
         while (cur.moveToNext()) {
            // long calID = 0;
-            button.setText("HELGE2"+cur);
-count++;
+            count++;
             String displayName = null;
             String accountName = null;
             String ownerName = null;
               
             // Get the field values
-         //   calID = cur.getLong(PROJECTION_ID_INDEX);
+            //   calID = cur.getLong(PROJECTION_ID_INDEX);
             displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
             accountName = cur.getString(PROJECTION_ACCOUNT_NAME_INDEX);
             ownerName = cur.getString(PROJECTION_OWNER_ACCOUNT_INDEX);
@@ -98,16 +95,10 @@ count++;
 
             // Do something with the values...
             Log.d("com.example.vmr", "displayName"+displayName);
-
-            
         }
         Log.d("com.example.vmr", "--- calendar ---");
-
-       
-
-        getEvents();
-        
-    }
+   }
+   
    
    public void getEvents(){
 	   GregorianCalendar beginWindow = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
@@ -151,17 +142,11 @@ count++;
 	   
    }
     
-
     public void onClick(View v) {
         touchCount++;
         Log.d("com.example.vmr", "fisk"+touchCount+ "'"+cache);
 
         button.setText("Touched me " + touchCount + " times   !!"+ cache);
     }
-    
-    
-
-    
- 
 
 }
