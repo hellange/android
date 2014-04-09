@@ -61,43 +61,8 @@ public class MainActivity extends Activity implements View.OnClickListener { // 
         button.setOnClickListener( this );
         setContentView(button);
        
-        /*
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
-        */
-         /*
-     // Create the text message with a string
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "xxx");
-        sendIntent.setType(HTTP.PLAIN_TEXT_TYPE); // "text/plain" MIME type
-
-        // Verify that the intent will resolve to an activity
-        if (sendIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(sendIntent);
-        } 
-        
-        
-        
-        /*
-        /*
-        
-     // Always use string resources for UI text.
-     // This says something like "Share this photo with"
-     // Create intent to show chooser
-     Intent chooser = Intent.createChooser(intent, "CHOSE SOMETHING");
-     Intent sendIntent = new Intent();
-     // Verify the intent will resolve to at least one activity
-     if (sendIntent.resolveActivity(getPackageManager()) != null) {
-         startActivity(sendIntent);
-     }
-     */
-     // The indices for the projection array above.
+      
     
-     // Run query
         
         Cursor cur = null;
         ContentResolver cr = getContentResolver();
@@ -191,7 +156,7 @@ count++;
         touchCount++;
         Log.d("com.example.vmr", "fisk"+touchCount+ "'"+cache);
 
-       // button.setText("Touched me " + touchCount + " times   !"+ cache);
+        button.setText("Touched me " + touchCount + " times   !!"+ cache);
     }
     
     
