@@ -146,7 +146,7 @@ public class MainActivity extends Activity implements View.OnClickListener { // 
         touchCount++;
         Log.d("com.example.vmr", "fisk"+touchCount+ "'"+cache);
 
-        button.setText("Touched me " + touchCount + " times   !!"+ cache);
+        button.setText("Touched VMR " + touchCount + " times   !!"+ cache);
     }
 
 }
